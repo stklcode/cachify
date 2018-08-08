@@ -124,6 +124,11 @@ final class Cachify_DB {
 			return;
 		}
 
+		/*
+		 * The following block intentionally outputs (cached) HTML.
+		 * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+		 */
+
 		/* Content */
 		echo $cache['data'];
 
@@ -131,6 +136,8 @@ final class Cachify_DB {
 		if ( isset( $cache['meta'] ) ) {
 			echo self::_cache_signature( $sig_detail, $cache['meta'] );
 		}
+
+		// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		/* Quit */
 		exit;

@@ -1488,9 +1488,9 @@ final class Cachify {
 	 			</div>
 			</div>',
 			esc_html__( 'Remove', 'cachify' ),
-			$available_options[ $current_action ],
+			$available_options[ $current_action ],			// phpcs:ignore
 			esc_html__( 'Edit', 'cachify' ),
-			$dropdown_options,
+			$dropdown_options,								// phpcs:ignore
 			esc_html__( 'OK', 'cachify' ),
 			esc_html__( 'Cancel', 'cachify' )
 		);
@@ -1660,13 +1660,15 @@ final class Cachify {
 			foreach ( $cachify_tabs as $tab_key => $tab_data ) {
 				printf(
 					'<a class="nav-tab %s" href="%s">%s</a>',
-					$tab_key === $current_tab ? 'nav-tab-active' : '',
-					add_query_arg(
-						array(
-							'page' => 'cachify',
-							'cachify_tab' => $tab_key,
-						),
-						admin_url( 'options-general.php' )
+					( $tab_key === $current_tab ) ? 'nav-tab-active' : '',
+					esc_attr(
+						add_query_arg(
+							array(
+								'page' => 'cachify',
+								'cachify_tab' => $tab_key,
+							),
+							admin_url( 'options-general.php' )
+						)
 					),
 					esc_html( $tab_data['name'] )
 				);

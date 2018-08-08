@@ -88,12 +88,14 @@ $ending = '/cache/cachify/%{ENV:CACHIFY_HOST}%{ENV:CACHIFY_DIR}index.html%{ENV:C
 	<div style="background:#fff;border:1px solid #ccc;padding:10px 20px">
 		<pre>
 			<?php
-			echo sprintf( '%s%s%s%s%s',
-				$beginning,
-				WP_CONTENT_DIR,
-				$middle,
-				wp_make_link_relative( content_url() ),
-				$ending
+			echo esc_html(
+				sprintf( '%s%s%s%s%s',
+					$beginning,
+					WP_CONTENT_DIR,
+					$middle,
+					wp_make_link_relative( content_url() ),
+					$ending
+				)
 			);
 			?>
 		</pre>
