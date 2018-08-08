@@ -1,8 +1,15 @@
 <?php
+/**
+ * Cachify: DB caching backend.
+ *
+ * This file contains the backend class for database caching.
+ *
+ * @package   Cachify
+ */
 
 /**
-* Cachify_DB
-*/
+ * Cachify_DB
+ */
 final class Cachify_DB {
 
 	/**
@@ -42,7 +49,7 @@ final class Cachify_DB {
 	public static function store_item( $hash, $data, $lifetime ) {
 		/* Do not store empty data. */
 		if ( empty( $data ) ) {
-			trigger_error( __METHOD__ . ": Empty input.", E_USER_WARNING );
+			trigger_error( __METHOD__ . ': Empty input.', E_USER_WARNING );
 			return;
 		}
 
@@ -53,9 +60,9 @@ final class Cachify_DB {
 				'data' => $data,
 				'meta' => array(
 					'queries' => self::_page_queries(),
-					'timer'	  => self::_page_timer(),
+					'timer'   => self::_page_timer(),
 					'memory'  => self::_page_memory(),
-					'time'	  => current_time( 'timestamp' ),
+					'time'    => current_time( 'timestamp' ),
 				),
 			),
 			$lifetime

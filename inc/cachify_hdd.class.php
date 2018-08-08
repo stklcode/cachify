@@ -1,8 +1,15 @@
 <?php
+/**
+ * Cachify: HDD caching backend.
+ *
+ * This file contains the backend class for HDD caching.
+ *
+ * @package   Cachify
+ */
 
 /**
-* Cachify_HDD
-*/
+ * Cachify_HDD
+ */
 final class Cachify_HDD {
 
 	/**
@@ -44,7 +51,7 @@ final class Cachify_HDD {
 	public static function store_item( $hash, $data, $lifetime, $sig_detail ) {
 		/* Do not store empty data. */
 		if ( empty( $data ) ) {
-			trigger_error( __METHOD__ . ": Empty input.", E_USER_WARNING );
+			trigger_error( __METHOD__ . ': Empty input.', E_USER_WARNING );
 			return;
 		}
 
@@ -105,7 +112,7 @@ final class Cachify_HDD {
 	public static function print_cache() {
 		$filename = self::_file_html();
 		$size = is_readable( $filename ) ? readfile( $filename ) : false;
-		if ( ! empty ( $size ) ) {
+		if ( ! empty( $size ) ) {
 			/* Ok, cache file has been sent to output. */
 			exit;
 		}
@@ -176,8 +183,9 @@ final class Cachify_HDD {
 	 * @param   string $data  Cache content.
 	 */
 	private static function _create_file( $file, $data ) {
+		$handle = @fopen( $file, 'wb' );
 		/* Writable? */
-		if ( ! $handle = @fopen( $file, 'wb' ) ) {
+		if ( ! $handle ) {
 			trigger_error( __METHOD__ . ": Could not write file {$file}.", E_USER_WARNING );
 			return;
 		}
@@ -202,7 +210,7 @@ final class Cachify_HDD {
 	 * @change  2.0.5
 	 *
 	 * @param   string  $dir        Directory path.
-	 * @param   boolean $recursive  Clear subdirectories?
+	 * @param   boolean $recursive  Clear subdirectories (default: FALSE).
 	 */
 	private static function _clear_dir( $dir, $recursive = false ) {
 		/* Remote training slash */
@@ -348,13 +356,13 @@ final class Cachify_HDD {
 	 * @return  string              Path to GZIP file
 	 */
 	private static function _file_gzip( $file_path = '' ) {
-		return ( empty( $file_path ) ? self::_file_path() : $file_path )  . 'index.html.gz';
+		return ( empty( $file_path ) ? self::_file_path() : $file_path ) . 'index.html.gz';
 	}
 
 	/**
 	 * Does the user has the right to delete this file?
 	 *
-	 * @param string $file
+	 * @param string $file File path to check.
 	 *
 	 * @return bool
 	 */
@@ -386,7 +394,7 @@ final class Cachify_HDD {
 			return false;
 		}
 
-		// We are on a subdirectory installation and the current blog is in a subdirectory
+		// We are on a subdirectory installation and the current blog is in a subdirectory.
 		if ( '/' !== $current_blog->path ) {
 			return true;
 		}

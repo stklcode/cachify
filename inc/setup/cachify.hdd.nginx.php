@@ -1,4 +1,13 @@
 <?php
+/**
+ * Cachify: Setup instructions for HDD with nginx.
+ *
+ * This file contains the setup isntructions view for HDD caching using nginx.
+ *
+ * @package    Cachify
+ * @subpackage Setup Instructions
+ */
+
 /* Quit */
 defined( 'ABSPATH' ) || exit;
 ?>

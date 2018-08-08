@@ -1,4 +1,13 @@
 <?php
+/**
+ * Cachify: Setup instructions for APC with nginx.
+ *
+ * This file contains the setup isntructions view for APC caching with nginx.
+ *
+ * @package    Cachify
+ * @subpackage Setup Instructions
+ */
+
 /* Quit */
 defined( 'ABSPATH' ) || exit;
 
@@ -32,8 +41,14 @@ $ending = '/cachify/apc/proxy.php;
 	</table>
 
 	<div style="background:#fff;border:1px solid #ccc;padding:10px 20px">
-		<pre><?php echo sprintf( '%s%s%s',
-			$beginning,
-			WP_PLUGIN_DIR,
-		$ending ); ?></pre>
+		<pre>
+			<?php
+			echo sprintf(
+				'%s%s%s',
+				$beginning,
+				WP_PLUGIN_DIR,
+				$ending
+			);
+			?>
+		</pre>
 	</div>

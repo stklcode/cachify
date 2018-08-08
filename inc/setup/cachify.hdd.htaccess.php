@@ -1,4 +1,13 @@
 <?php
+/**
+ * Cachify: Setup instructions for HDD with htaccess.
+ *
+ * This file contains the setup isntructions view for HDD caching using htaccess.
+ *
+ * @package    Cachify
+ * @subpackage Setup Instructions
+ */
+
 /* Quit */
 defined( 'ABSPATH' ) || exit;
 
@@ -77,10 +86,15 @@ $ending = '/cache/cachify/%{ENV:CACHIFY_HOST}%{ENV:CACHIFY_DIR}index.html%{ENV:C
 	</table>
 
 	<div style="background:#fff;border:1px solid #ccc;padding:10px 20px">
-		<pre><?php echo sprintf( '%s%s%s%s%s',
-			$beginning,
-			WP_CONTENT_DIR,
-			$middle,
-			wp_make_link_relative( content_url() ),
-		$ending ); ?></pre>
+		<pre>
+			<?php
+			echo sprintf( '%s%s%s%s%s',
+				$beginning,
+				WP_CONTENT_DIR,
+				$middle,
+				wp_make_link_relative( content_url() ),
+				$ending
+			);
+			?>
+		</pre>
 	</div>

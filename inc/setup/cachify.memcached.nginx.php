@@ -1,4 +1,13 @@
 <?php
+/**
+ * Cachify: Setup instructions for memcached with nginx.
+ *
+ * This file contains the setup isntructions view for memcached caching using nginx.
+ *
+ * @package    Cachify
+ * @subpackage Setup Instructions
+ */
+
 /* Quit */
 defined( 'ABSPATH' ) || exit;
 ?>
@@ -25,11 +34,14 @@ defined( 'ABSPATH' ) || exit;
 						<?php esc_html_e( 'For domains with FQDN, the variable ${http_host} must be used instead of ${host}.', 'cachify' ); ?>
 					</li>
 					<li>
-						<?php echo sprintf(
+						<?php
+						echo sprintf(
+							/* translators: parameters contain a single nginx config line each */
 							esc_html__( 'If you have errors please try to change %1$s to %2$s This forces IPv4 because some servers that allow ipv4 and ipv6 are configured to bind memcached to ipv4 only.', 'cachify' ),
 							'memcached_pass localhost:11211;',
 							'memcached_pass 127.0.0.1:11211;'
-						); ?>
+						);
+						?>
 					</li>
 				</ul>
 			</td>

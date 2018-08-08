@@ -1,10 +1,18 @@
 <?php
+/**
+ * Cachify: Settings page content.
+ *
+ * This file contains the view component for the plugin's settings page.
+ *
+ * @package   Cachify
+ */
+
 /* Quit */
 defined( 'ABSPATH' ) || exit;
 ?>
 
 <form method="post" action="options.php">
-	<?php settings_fields( 'cachify' ) ?>
+	<?php settings_fields( 'cachify' ); ?>
 	<table class="form-table">
 		<tr>
 			<th scope="row">
@@ -13,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 			<td>
 				<select name="cachify[use_apc]" id="cachify_cache_method">
 					<?php foreach ( self::_method_select() as $k => $v ) { ?>
-						<option value="<?php echo esc_attr( $k ) ?>" <?php selected( $options['use_apc'], $k ); ?>><?php echo esc_html( $v ) ?></option>
+						<option value="<?php echo esc_attr( $k ); ?>" <?php selected( $options['use_apc'], $k ); ?>><?php echo esc_html( $v ); ?></option>
 					<?php } ?>
 				</select>
 			</td>
@@ -21,14 +29,14 @@ defined( 'ABSPATH' ) || exit;
 
 		<tr>
 			<th scope="row">
-				<label for="cachify_cache_expires"><?php esc_html_e( 'Cache expiration', 'cachify' ) ?></label>
+				<label for="cachify_cache_expires"><?php esc_html_e( 'Cache expiration', 'cachify' ); ?></label>
 			</th>
 			<td>
 				<?php if ( self::METHOD_HDD === $options['use_apc'] ) : ?>
 					<input type="number" min="0" step="1" name="cachify[cache_expires]" id="cachify_cache_expires" value="" disabled="disabled" class="small-text" /> Hours
 					<p class="description"><?php esc_html_e( 'HDD cache will only expire as you update posts or flush it yourself.', 'cachify' ); ?></p>
 				<?php else : ?>
-					<input type="number" min="0" step="1" name="cachify[cache_expires]" id="cachify_cache_expires" value="<?php echo esc_attr( $options['cache_expires'] ) ?>" class="small-text" />
+					<input type="number" min="0" step="1" name="cachify[cache_expires]" id="cachify_cache_expires" value="<?php echo esc_attr( $options['cache_expires'] ); ?>" class="small-text" />
 					<?php esc_html_e( 'Hours', 'cachify' ); ?>
 				<?php endif; ?>
 			</td>
@@ -62,14 +70,14 @@ defined( 'ABSPATH' ) || exit;
 			<td>
 				<fieldset>
 					<label for="cachify_without_ids">
-						<input type="text" name="cachify[without_ids]" id="cachify_without_ids" placeholder="<?php esc_attr_e( 'e.g. 1, 2, 3', 'cachify' ); ?>" value="<?php echo esc_attr( $options['without_ids'] ) ?>" />
+						<input type="text" name="cachify[without_ids]" id="cachify_without_ids" placeholder="<?php esc_attr_e( 'e.g. 1, 2, 3', 'cachify' ); ?>" value="<?php echo esc_attr( $options['without_ids'] ); ?>" />
 						<?php esc_html_e( 'Post/Pages-IDs', 'cachify' ); ?>
 					</label>
 
 					<br />
 
 					<label for="cachify_without_agents">
-						<input type="text" name="cachify[without_agents]" id="cachify_without_agents" placeholder="<?php esc_attr_e( 'e.g. MSIE 6, Opera', 'cachify' ); ?>" value="<?php echo esc_attr( $options['without_agents'] ) ?>" />
+						<input type="text" name="cachify[without_agents]" id="cachify_without_agents" placeholder="<?php esc_attr_e( 'e.g. MSIE 6, Opera', 'cachify' ); ?>" value="<?php echo esc_attr( $options['without_agents'] ); ?>" />
 						<?php esc_html_e( 'Browser User-Agents', 'cachify' ); ?>
 					</label>
 				</fieldset>
@@ -83,8 +91,8 @@ defined( 'ABSPATH' ) || exit;
 			<td>
 				<select name="cachify[compress_html]" id="cachify_compress_html">
 					<?php foreach ( self::_minify_select() as $k => $v ) { ?>
-					<option value="<?php echo esc_attr( $k ) ?>" <?php selected( $options['compress_html'], $k ); ?>>
-						<?php echo esc_html( $v ) ?>
+					<option value="<?php echo esc_attr( $k ); ?>" <?php selected( $options['compress_html'], $k ); ?>>
+						<?php echo esc_html( $v ); ?>
 					</option>
 					<?php } ?>
 				</select>
@@ -102,5 +110,5 @@ defined( 'ABSPATH' ) || exit;
 		</tr>
 	</table>
 
-	<?php submit_button() ?>
+	<?php submit_button(); ?>
 </form>

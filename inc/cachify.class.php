@@ -1,8 +1,15 @@
 <?php
+/**
+ * Cachify: Cachify base class.
+ *
+ * This file contains the plugin's base class.
+ *
+ * @package   Cachify
+ */
 
 /**
-* Cachify
-*/
+ * Cachify
+ */
 final class Cachify {
 
 	/**
@@ -66,7 +73,6 @@ final class Cachify {
 	 * @since   1.0.0
 	 * @change  2.2.2
 	 *
-	 * @param   void
 	 * @return  void
 	 */
 	public function __construct() {
@@ -463,19 +469,19 @@ final class Cachify {
 
 		/* APC */
 		if ( self::METHOD_APC === self::$options['use_apc'] && Cachify_APC::is_available() ) {
-			self::$method = new Cachify_APC;
+			self::$method = new Cachify_APC();
 
 			/* HDD */
 		} elseif ( self::METHOD_HDD === self::$options['use_apc'] && Cachify_HDD::is_available() ) {
-			self::$method = new Cachify_HDD;
+			self::$method = new Cachify_HDD();
 
 			/* MEMCACHED */
 		} elseif ( self::METHOD_MMC === self::$options['use_apc'] && Cachify_MEMCACHED::is_available() ) {
-			self::$method = new Cachify_MEMCACHED;
+			self::$method = new Cachify_MEMCACHED();
 
 			/* DB */
 		} else {
-			self::$method = new Cachify_DB;
+			self::$method = new Cachify_DB();
 		}
 	}
 
@@ -491,14 +497,14 @@ final class Cachify {
 		return wp_parse_args(
 			get_option( 'cachify' ),
 			array(
-				'only_guests'	 	=> 1,
-				'compress_html'	 	=> self::MINIFY_DISABLED,
-				'cache_expires'	 	=> 12,
-				'without_ids'	 	=> '',
-				'without_agents' 	=> '',
-				'use_apc'		 	=> self::METHOD_DB,
-				'reset_on_comment'  => 0,
-				'sig_detail'        => 0,
+				'only_guests'      => 1,
+				'compress_html'    => self::MINIFY_DISABLED,
+				'cache_expires'    => 12,
+				'without_ids'      => '',
+				'without_agents'   => '',
+				'use_apc'          => self::METHOD_DB,
+				'reset_on_comment' => 0,
+				'sig_detail'       => 0,
 			)
 		);
 	}
@@ -558,7 +564,7 @@ final class Cachify {
 						admin_url( 'options-general.php' )
 					),
 					esc_html__( 'Settings', 'cachify' )
-				)
+				),
 			)
 		);
 	}
@@ -654,7 +660,8 @@ final class Cachify {
 	 * @return  integer    Cache size in bytes.
 	 */
 	public static function get_cache_size() {
-		if ( ! $size = get_transient( 'cachify_cache_size' ) ) {
+		$size = get_transient( 'cachify_cache_size' );
+		if ( ! $size ) {
 			/* Read */
 			$size = (int) call_user_func(
 				array(
@@ -696,10 +703,10 @@ final class Cachify {
 		/* Add menu item */
 		$wp_admin_bar->add_menu(
 			array(
-				'id' 	 => 'cachify',
+				'id'     => 'cachify',
 				'href'   => wp_nonce_url( add_query_arg( '_cachify', 'flush' ), '_cachify__flush_nonce' ), // esc_url in /wp-includes/class-wp-admin-bar.php#L438.
 				'parent' => 'top-secondary',
-				'title'	 => '<span class="ab-icon dashicons"></span>',
+				'title'  => '<span class="ab-icon dashicons"></span>',
 				'meta'   => array(
 					'title' => esc_html__( 'Flush the cachify cache', 'cachify' ),
 				),
@@ -878,7 +885,6 @@ final class Cachify {
 	 * @since   2.1.7  Make the function public
 	 * @since   2.0.3
 	 *
-	 * @param   void
 	 * @return  void
 	 */
 	public static function register_publish_hooks() {
@@ -978,7 +984,8 @@ final class Cachify {
 	 */
 	public static function remove_page_cache_by_post_id( $post_id ) {
 		/* Value check */
-		if ( ! $post_id = (int) $post_id ) {
+		$post_id = (int) $post_id;
+		if ( ! $post_id ) {
 			return;
 		}
 
@@ -998,7 +1005,8 @@ final class Cachify {
 	 */
 	public static function remove_page_cache_by_url( $url ) {
 		/* Value check */
-		if ( ! $url = (string) $url ) {
+		$url = (string) $url;
+		if ( ! $url ) {
 			return;
 		}
 
@@ -1032,7 +1040,7 @@ final class Cachify {
 	 * @return  bool  Show details in signature.
 	 */
 	private static function _signature_details() {
-		return self::$options['sig_detail'] === 1;
+		return 1 === self::$options['sig_detail'];
 	}
 
 	/**
@@ -1124,11 +1132,11 @@ final class Cachify {
 	 * @since   0.2
 	 * @change  2.3.0
 	 *
-	 * @param   boolean  $base_check Check only if request vars are empty and
-	 *                               whether to skip caching for logged users.
-	 * @return  boolean              TRUE on exclusion
+	 * @param   boolean $base_check Check only if request vars are empty and
+	 *                              whether to skip caching for logged users.
+	 * @return  boolean             TRUE on exclusion
 	 *
-	 * @hook    boolean  cachify_skip_cache
+	 * @hook    boolean cachify_skip_cache
 	 */
 	private static function _skip_cache( $base_check = false ) {
 
@@ -1324,7 +1332,10 @@ final class Cachify {
 
 	/**
 	 * Retrieve cache contents if there are any.
+	 *
 	 * @since 2.3
+	 *
+	 * @return void
 	 */
 	public static function print_cache() {
 
@@ -1393,7 +1404,7 @@ final class Cachify {
 					array(),
 					$plugin_data['Version']
 				);
-			break;
+				break;
 
 			case 'post.php':
 				wp_enqueue_script(
@@ -1403,10 +1414,10 @@ final class Cachify {
 					$plugin_data['Version'],
 					true
 				);
-			break;
+				break;
 
 			default:
-			break;
+				break;
 		}
 	}
 
@@ -1510,7 +1521,6 @@ final class Cachify {
 	 * @since  2.0.0
 	 * @change 2.1.3
 	 *
-	 * @param  array $methods  Array of all available methods.
 	 * @return array           Array of actually available methods.
 	 */
 	private static function _method_select() {
@@ -1617,14 +1627,14 @@ final class Cachify {
 
 		/* Return */
 		return array(
-			'only_guests'      => (int) ( ! empty( $data['only_guests'] )),
+			'only_guests'      => (int) ( ! empty( $data['only_guests'] ) ),
 			'compress_html'    => (int) $data['compress_html'],
 			'cache_expires'    => (int) ( isset( $data['cache_expires'] ) ? $data['cache_expires'] : self::$options['cache_expires'] ),
 			'without_ids'      => (string) isset( $data['without_ids'] ) ? sanitize_text_field( $data['without_ids'] ) : '',
 			'without_agents'   => (string) isset( $data['without_agents'] ) ? sanitize_text_field( $data['without_agents'] ) : '',
 			'use_apc'          => (int) $data['use_apc'],
-			'reset_on_comment' => (int) ( ! empty( $data['reset_on_comment'] )),
-			'sig_detail'       => (int) ( ! empty( $data['sig_detail'] )),
+			'reset_on_comment' => (int) ( ! empty( $data['reset_on_comment'] ) ),
+			'sig_detail'       => (int) ( ! empty( $data['sig_detail'] ) ),
 		);
 	}
 
@@ -1638,36 +1648,40 @@ final class Cachify {
 		$options = self::_get_options();
 		$cachify_tabs = self::_get_tabs( $options );
 		$current_tab = isset( $_GET['cachify_tab'] ) && isset( $cachify_tabs[ $_GET['cachify_tab'] ] ) ? $_GET['cachify_tab'] : 'settings';
-	?>
+		?>
 
 		<div class="wrap" id="cachify_settings">
 			<h1>Cachify</h1>
 
-			<?php
-				/* Add a navbar if necessary */
-				if ( count( $cachify_tabs ) > 1 ) {
-					echo '<h2 class="nav-tab-wrapper">';
-					foreach ( $cachify_tabs as $tab_key => $tab_data ) {
-						printf(
-							'<a class="nav-tab %s" href="%s">%s</a>',
-							$tab_key === $current_tab ? 'nav-tab-active' : '',
-							add_query_arg(
-								array( 'page' => 'cachify', 'cachify_tab' => $tab_key ),
-								admin_url( 'options-general.php' )
-							),
-							esc_html( $tab_data['name'] )
-						);
-					}
-					echo '</h2>';
-				}
+		<?php
+		/* Add a navbar if necessary */
+		if ( count( $cachify_tabs ) > 1 ) {
+			echo '<h2 class="nav-tab-wrapper">';
+			foreach ( $cachify_tabs as $tab_key => $tab_data ) {
+				printf(
+					'<a class="nav-tab %s" href="%s">%s</a>',
+					$tab_key === $current_tab ? 'nav-tab-active' : '',
+					add_query_arg(
+						array(
+							'page' => 'cachify',
+							'cachify_tab' => $tab_key,
+						),
+						admin_url( 'options-general.php' )
+					),
+					esc_html( $tab_data['name'] )
+				);
+			}
+			echo '</h2>';
+		}
 
-				/* Include current tab */
-				include $cachify_tabs[ $current_tab ]['page'];
+		/* Include current tab */
+		include $cachify_tabs[ $current_tab ]['page'];
 
-				/* Include common footer */
-				include 'cachify.settings_footer.php';
-			?>
-		</div><?php
+		/* Include common footer */
+		include 'cachify.settings_footer.php';
+		?>
+		</div>
+		<?php
 	}
 
 	/**
@@ -1676,7 +1690,8 @@ final class Cachify {
 	 * @since   2.3.0
 	 * @change  2.3.0
 	 *
-	 * @param array $options
+	 * @param array $options Plugin options.
+	 *
 	 * @return array
 	 */
 	private static function _get_tabs( $options ) {
