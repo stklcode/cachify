@@ -15,6 +15,7 @@
 
 	<!-- ignore vendor files-->
 	<file>inc</file>
+	<file>views</file>
 	<file>cachify.php</file>
 	<exclude-pattern>vendor/*</exclude-pattern>
 

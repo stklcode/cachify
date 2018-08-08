@@ -1691,7 +1691,7 @@ final class Cachify {
 		include $cachify_tabs[ $current_tab ]['page'];
 
 		/* Include common footer */
-		include 'cachify.settings_footer.php';
+		include CACHIFY_DIR . '/views/settings-footer.php';
 		?>
 		</div>
 		<?php
@@ -1712,7 +1712,7 @@ final class Cachify {
 		$tabs = array(
 			'settings' => array(
 				'name' => __( 'Settings', 'cachify' ),
-				'page' => 'cachify.settings.php',
+				'page' => CACHIFY_DIR . '/views/settings-page.php',
 			),
 		);
 
@@ -1720,19 +1720,19 @@ final class Cachify {
 			/* Setup tab for HDD Cache */
 			$tabs['setup'] = array(
 				'name' => __( 'Setup', 'cachify' ),
-				'page' => 'setup/cachify.hdd.' . ( self::$is_nginx ? 'nginx' : 'htaccess' ) . '.php',
+				'page' => CACHIFY_DIR . '/views/setup/hdd-' . ( self::$is_nginx ? 'nginx' : 'htaccess' ) . '.php',
 			);
 		} elseif ( self::METHOD_APC === $options['use_apc'] ) {
 			/* Setup tab for APC */
 			$tabs['setup'] = array(
 				'name' => __( 'Setup', 'cachify' ),
-				'page' => 'setup/cachify.apc.' . ( self::$is_nginx ? 'nginx' : 'htaccess' ) . '.php',
+				'page' => CACHIFY_DIR . '/views/setup/apc-' . ( self::$is_nginx ? 'nginx' : 'htaccess' ) . '.php',
 			);
 		} elseif ( self::METHOD_MMC === $options['use_apc'] && self::$is_nginx ) {
 			/* Setup tab for Memcached */
 			$tabs['setup'] = array(
 				'name' => __( 'Setup', 'cachify' ),
-				'page' => 'setup/cachify.memcached.nginx.php',
+				'page' => CACHIFY_DIR . '/views/setup/memcached-nginx.php',
 			);
 		}
 
