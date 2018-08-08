@@ -46,6 +46,7 @@ final class Cachify {
 	const METHOD_APC = 1;
 	const METHOD_HDD = 2;
 	const METHOD_MMC = 3;
+	const METHOD_RED = 4;
 
 	/**
 	 * Minify settings
@@ -478,6 +479,10 @@ final class Cachify {
 			/* MEMCACHED */
 		} elseif ( self::METHOD_MMC === self::$options['use_apc'] && Cachify_MEMCACHED::is_available() ) {
 			self::$method = new Cachify_MEMCACHED();
+
+			/* REDIS */
+		} elseif ( self::METHOD_RED === self::$options['use_apc'] && Cachify_REDIS::is_available() ) {
+			self::$method = new Cachify_REDIS();
 
 			/* DB */
 		} else {
@@ -1298,6 +1303,9 @@ final class Cachify {
 
 			/* MEMCACHED */
 			Cachify_MEMCACHED::clear_cache();
+
+			/* REDIS */
+			Cachify_REDIS::clear_cache();
 		} else {
 			call_user_func(
 				array(
@@ -1541,6 +1549,7 @@ final class Cachify {
 			self::METHOD_APC => esc_html__( 'APC', 'cachify' ),
 			self::METHOD_HDD => esc_html__( 'Hard disk', 'cachify' ),
 			self::METHOD_MMC => esc_html__( 'Memcached', 'cachify' ),
+			self::METHOD_RED => esc_html__( 'Redis', 'cachify' ),
 		);
 
 		/* APC */
@@ -1548,14 +1557,19 @@ final class Cachify {
 			unset( $methods[1] );
 		}
 
+		/* HDD */
+		if ( ! Cachify_HDD::is_available() ) {
+			unset( $methods[2] );
+		}
+
 		/* Memcached? */
 		if ( ! Cachify_MEMCACHED::is_available() ) {
 			unset( $methods[3] );
 		}
 
-		/* HDD */
-		if ( ! Cachify_HDD::is_available() ) {
-			unset( $methods[2] );
+		/* Redis? */
+		if ( ! Cachify_REDIS::is_available() ) {
+			unset( $methods[4] );
 		}
 
 		return $methods;
@@ -1733,6 +1747,12 @@ final class Cachify {
 			$tabs['setup'] = array(
 				'name' => __( 'Setup', 'cachify' ),
 				'page' => CACHIFY_DIR . '/views/setup/memcached-nginx.php',
+			);
+		} elseif ( self::METHOD_RED === $options['use_apc'] && self::$is_nginx ) {
+			/* Setup tab for Redis */
+			$tabs['setup'] = array(
+				'name' => __( 'Setup', 'cachify' ),
+				'page' => CACHIFY_DIR . '/views/setup/redis-nginx.php',
 			);
 		}
 
