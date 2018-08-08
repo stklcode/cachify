@@ -1144,7 +1144,7 @@ final class Cachify {
 		$options = self::$options;
 
 		/* Request vars */
-		if ( ! empty( $_POST ) || ( ! empty( $_GET ) && get_option( 'permalink_structure' ) ) ) {
+		if ( ! empty( $_POST ) || ( ! empty( $_GET ) && get_option( 'permalink_structure' ) ) ) {		// phpcs:ignore
 			return true;
 		}
 

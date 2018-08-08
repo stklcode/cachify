@@ -33,7 +33,6 @@
 		<exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotValidated"/>
 		<exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotSanitized"/>
 		<exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash"/>
-		<exclude name="WordPress.Security.NonceVerification.NoNonceVerification"/>
 
 		<!-- TODO: Rename class files according to WP coding standard. -->
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
