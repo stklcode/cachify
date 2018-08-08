@@ -1192,13 +1192,24 @@ final class Cachify {
 		}
 
 		/* User Agents */
-		if ( $options['without_agents'] && isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-			if ( array_filter( self::_preg_split( $options['without_agents'] ), create_function( '$a', 'return strpos($_SERVER["HTTP_USER_AGENT"], $a);' ) ) ) {
-				return true;
-			}
+		if ( $options['without_agents'] && isset( $_SERVER['HTTP_USER_AGENT'] ) &&
+			 array_filter( self::_preg_split( $options['without_agents'] ), 'self::filter_user_agent' ) ) {
+			return true;
 		}
 
 		return false;
+	}
+
+	/**
+	 * Callback function for filtering.
+	 * Can be converted to closure if PHP compatibility is raised to 5.3 or above.
+	 *
+	 * @param string $matcher String to search for in user agent.
+	 *
+	 * @return boolean|integer
+	 */
+	private static function filter_user_agent( $matcher ) {
+		return strpos( $_SERVER['HTTP_USER_AGENT'], $matcher );
 	}
 
 	/**

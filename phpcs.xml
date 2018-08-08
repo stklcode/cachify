@@ -38,10 +38,6 @@
 		<!-- TODO: Rename class files according to WP coding standard. -->
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
-
-		<!-- TODO: Eliminate use of create_function() and re-enable these checks. -->
-		<exclude name="Generic.PHP.DeprecatedFunctions.Deprecated"/>
-		<exclude name="WordPress.PHP.RestrictedPHPFunctions.create_function_create_function"/>
 	</rule>
 
 	<!-- Include sniffs for PHP cross-version compatibility. -->
