@@ -14,6 +14,7 @@
 	<arg name="colors"/>
 
 	<!-- ignore vendor files-->
+	<file>apc</file>
 	<file>inc</file>
 	<file>views</file>
 	<file>cachify.php</file>
