@@ -88,7 +88,7 @@ final class Cachify_MEMCACHED {
 	public static function get_item( $hash ) {
 		/* Server connect */
 		if ( ! self::_connect_server() ) {
-			return;
+			return false;
 		}
 
 		/* Get item */
