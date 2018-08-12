@@ -1,11 +1,11 @@
 jQuery(document).ready(
-	function($) {
+	function( $ ) {
 
-		$('.edit-cachify-status', '#misc-publishing-actions').click(
-			function(e) {
-				$(this)
-					.next(':hidden')
-					.slideDown('fast')
+		$( '.edit-cachify-status', '#misc-publishing-actions' ).click(
+			function( e ) {
+				$( this )
+					.next( ':hidden' )
+					.slideDown( 'fast' )
 					.end()
 					.hide();
 
@@ -13,28 +13,28 @@ jQuery(document).ready(
 			}
 		);
 
-		$('.save-cachify-status', '#misc-publishing-actions').click(
-			function(e) {
-				$(this)
+		$( '.save-cachify-status', '#misc-publishing-actions' ).click(
+			function( e ) {
+				$( this )
 					.parent()
-					.slideUp('fast')
-					.prev(':hidden')
+					.slideUp( 'fast' )
+					.prev( ':hidden' )
 					.show();
 
-				$('#output-cachify-status').text(
-					$('#cachify_status').children('option:selected').text()
+				$( '#output-cachify-status' ).text(
+					$( '#cachify_status' ).children( 'option:selected' ).text()
 				);
 
 				e.preventDefault();
 			}
 		);
 
-		$('.cancel-cachify-status', '#misc-publishing-actions').click(
-			function(e) {
-				$(this)
+		$( '.cancel-cachify-status', '#misc-publishing-actions' ).click(
+			function( e ) {
+				$( this )
 					.parent()
-					.slideUp('fast')
-					.prev(':hidden')
+					.slideUp( 'fast' )
+					.prev( ':hidden' )
 					.show();
 
 				e.preventDefault();
